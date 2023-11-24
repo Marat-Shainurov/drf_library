@@ -1,5 +1,4 @@
 from django.core import validators
-from django.utils.translation import gettext_lazy as _
 
 
 class ISBNValidator(validators.RegexValidator):
@@ -8,9 +7,7 @@ class ISBNValidator(validators.RegexValidator):
     All the ISBNs should contain digits and '-' characters only.
     """
     regex = r"^[\d-]+$"
-    message = _(
-        "Enter a valid ISBN. This value may contain only digits and '-' characters"
-    )
+    message = "Enter a valid ISBN. This value may contain only digits and '-' characters"
 
 
 class PublishYearValidator(validators.RegexValidator):
@@ -19,6 +16,4 @@ class PublishYearValidator(validators.RegexValidator):
     All the publish_years should contain from 1 to 4 digits only.
     """
     regex = r"^\d{1,4}$"
-    message = _(
-        "Enter a valid 4-digit publish year."
-    )
+    message = "Enter a valid 4-digit publish year."
