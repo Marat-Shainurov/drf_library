@@ -50,7 +50,7 @@ class BookTestCase(APITestCase):
         response = self.client.post(reverse('library:create_book'), data=data)
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
         self.assertEqual(response.json()['ISBN'],
-                          ["Enter a valid ISBN. This value may contain only digits and '-' characters"])
+                         ["Enter a valid ISBN. This value may contain only digits and '-' characters"])
         self.assertEqual(response.json()['publish_year'], ['Enter a valid 4-digit publish year.'])
 
     def test_create_book_missing_fields(self):
