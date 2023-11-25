@@ -1,17 +1,26 @@
-from rest_framework import generics
+from rest_framework import generics, status
 from rest_framework.permissions import IsAuthenticated
+from rest_framework.response import Response
 
 from library.models import Book
-from library.serializers import BookSerializer
+from library.serializers import BookSerializer, BookCreateSerializer
 
 
 class CreateBookAPIView(generics.CreateAPIView):
     """
     Creates a new Book instance.
-    Uses BookSerializer as the request body schema.
+    Uses BookSerializer as the request body schema, and BookSerializer as the response schema.
     """
-    serializer_class = BookSerializer
+    serializer_class = BookCreateSerializer
     permission_classes = [IsAuthenticated]
+
+    def create(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            response_serializer = BookSerializer(serializer.instance)
+            return Response(response_serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 class RetrieveBookAPIView(generics.RetrieveAPIView):

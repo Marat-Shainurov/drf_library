@@ -3,6 +3,7 @@ from rest_framework import status
 from rest_framework.test import APITestCase
 
 from library.models import Book
+from users.models import CustomUser
 
 
 class BookTestCase(APITestCase):
@@ -11,6 +12,10 @@ class BookTestCase(APITestCase):
     """
 
     def setUp(self) -> None:
+        user_data = {'username': 'test_username', 'email': 'test_email', 'password': 'QWE123qwe123!'}
+        self.test_user = CustomUser.objects.create(**user_data)
+        self.client.force_authenticate(user=self.test_user)
+
         book_data = {
             'title': 'Test book',
             'author': 'Me',
@@ -68,10 +73,11 @@ class BookTestCase(APITestCase):
 
     def test_retrieve_book(self):
         """
-        Tests Book instances retrieve method.
+        Tests a Book instance retrieval by its id.
         """
         response = self.client.get(reverse('library:get_book', kwargs={'pk': self.test_book.id}))
         self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.json()['id'], self.test_book.id)
         self.assertEqual(response.json()['title'], self.test_book.title)
         self.assertEqual(response.json()['author'], self.test_book.author)
         self.assertEqual(response.json()['publish_year'], self.test_book.publish_year)
@@ -79,11 +85,21 @@ class BookTestCase(APITestCase):
 
     def test_retrieve_book_wrong_id(self):
         """
-        Tests Book instances retrieval with an invalid book id.
+        Tests a Book instance retrieval with an invalid book id.
         """
         response = self.client.get(reverse('library:get_book', kwargs={'pk': int(self.test_book.id) + 1}))
         self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
         self.assertEqual(response.json()['detail'], 'Not found.')
+
+    def test_get_books(self):
+        """
+        Tests getting a list of Book instances.
+        """
+        response = self.client.get(reverse('library:get_books'))
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertIsInstance(response.json(), list)
+        self.assertEqual(response.json()[0]['id'], self.test_book.id)
+        self.assertEqual(response.json()[0]['title'], self.test_book.title)
 
     def test_put_book(self):
         """

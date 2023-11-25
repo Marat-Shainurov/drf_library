@@ -16,7 +16,8 @@ class UsersTestCase(APITestCase):
         """
         data = {
             'username': 'test_username',
-            'email': 'test_email@mail.com'
+            'email': 'test_email@mail.com',
+            'password': 'QWE123qwe123!'
         }
         response = self.client.post(reverse('users:register_user'), data=data)
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
@@ -35,7 +36,8 @@ class UsersTestCase(APITestCase):
         """
         data = {
             'username': 'test_username',
-            'email': 'test_emailmail.com'
+            'email': 'test_emailmail.com',
+            'password': 'QWE123qwe123!'
         }
         response = self.client.post(reverse('users:register_user'), data=data)
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
@@ -50,3 +52,4 @@ class UsersTestCase(APITestCase):
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
         self.assertEqual(response.json()['username'], ['This field is required.'])
         self.assertEqual(response.json()['email'], ['This field is required.'])
+        self.assertEqual(response.json()['password'], ['This field is required.'])
