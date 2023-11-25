@@ -1,0 +1,69 @@
+  version: '3.9'
+
+  services:
+
+    db:
+      image: mysql:latest
+      container_name: db_drf_library
+      restart: always
+      environment:
+        MYSQL_DATABASE: ${MYSQL_DATABASE}
+        MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      ports:
+        - "3307:3306"
+      healthcheck:
+        test: [ "CMD", "mysqladmin", "ping", "-h", "db", "-uroot", "-p${MYSQL_ROOT_PASSWORD}" ]
+        interval: 10s
+        timeout: 5s
+        retries: 3
+      volumes:
+        - ./.env:/app/.env
+        - mysql_drf_library_data:/var/lib/mysql
+
+    redis:
+      image: redis:7.0.2-alpine
+      container_name: redis_drf_library
+      command: redis-server --save 20 1 --loglevel warning
+      ports:
+        - '6379:6379'
+      volumes:
+        - redis_drf_library_data:/data
+      healthcheck:
+        test: [ "CMD", "redis-cli", "ping" ]
+        interval: 10s
+        timeout: 5s
+        retries: 3
+
+    app:
+      build: .
+      container_name: app_drf_library
+      command: sh -c "python manage.py migrate && python manage.py runserver 0.0.0.0:8000"
+      ports:
+        - '8000:8000'
+      depends_on:
+        db:
+          condition: service_healthy
+        redis:
+          condition: service_started
+      volumes:
+        - ./.env:/app/.env
+
+    celery:
+      build: .
+      container_name: celery_drf_library
+      command: celery -A config worker -l INFO
+      volumes:
+        - celery_drf_library_data:/app
+      depends_on:
+        redis:
+          condition: service_healthy
+        db:
+          condition: service_healthy
+      environment:
+        - CELERY_BROKER_URL=redis://redis:6379/0
+        - CELERY_LOG_LEVEL=debug
+
+  volumes:
+    mysql_drf_library_data:
+    redis_drf_library_data:
+    celery_drf_library_data:

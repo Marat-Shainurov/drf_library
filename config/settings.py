@@ -45,7 +45,6 @@ INSTALLED_APPS = [
 
     'library',
     'users',
-
 ]
 
 MIDDLEWARE = [
@@ -84,11 +83,11 @@ WSGI_APPLICATION = 'config.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'library_db',
-        'USER': os.getenv('DATABASE_USER'),
-        'PASSWORD': os.getenv('DATABASE_PASSWORD'),
-        'HOST': 'localhost',
+        'NAME': os.getenv('MYSQL_DATABASE'),
+        'USER': 'root',
+        'PASSWORD': os.getenv('MYSQL_ROOT_PASSWORD'),
         'PORT': '3306',
+        'HOST': 'db'
     }
 }
 
@@ -140,6 +139,6 @@ EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
 EMAIL_USE_TLS = False
 EMAIL_USE_SSL = True
 
-CELERY_BROKER_URL = "redis://127.0.0.1:6379/0"
-CELERY_RESULT_BACKEND = "redis://127.0.0.1:6379/0"
+CELERY_BROKER_URL = "redis://redis:6379/0"
+CELERY_RESULT_BACKEND = "redis://redis:6379/0"
 CELERY_TASK_TRACK_STARTED = True
