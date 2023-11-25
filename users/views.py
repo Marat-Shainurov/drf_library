@@ -10,6 +10,7 @@ class CreateUserAPIView(generics.CreateAPIView):
     Creates a new CustomUser instance.
     Uses the CustomUserCreateSerializer serializers as the request body schema,
     and the CustomUserSerializer as the response body.
+    During the creation process sends a greeting email to a new user's email address via a delayed celery task.
     """
     serializer_class = CustomUserCreateSerializer
 
