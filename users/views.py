@@ -6,6 +6,11 @@ from users.tasks import greet_new_user
 
 
 class CreateUserAPIView(generics.CreateAPIView):
+    """
+    Creates a new CustomUser instance.
+    Uses the CustomUserCreateSerializer serializers as the request body schema,
+    and the CustomUserSerializer as the response body.
+    """
     serializer_class = CustomUserCreateSerializer
 
     def create(self, request, *args, **kwargs):
