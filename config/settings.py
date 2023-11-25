@@ -42,6 +42,7 @@ INSTALLED_APPS = [
 
     'rest_framework',
     'drf_yasg',
+    'rest_framework_simplejwt',
 
     'library',
     'users',
@@ -142,3 +143,11 @@ EMAIL_USE_SSL = True
 CELERY_BROKER_URL = "redis://redis:6379/0"
 CELERY_RESULT_BACKEND = "redis://redis:6379/0"
 CELERY_TASK_TRACK_STARTED = True
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ),
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.AllowAny'],
+}
