@@ -23,18 +23,19 @@ Main stack: Django, Djangorestframework, MySQL, Celery, Redis, Docker, unittest.
     - [ReDoc Documentation] http://127.0.0.1:8000/redoc/
 
 5. Start working with the app's endpoints: \
-      **users (authorization is not required)** \
-    - [Register User] http://127.0.0.1:8000/users/register
-    - [Register User] http://127.0.0.1:8000/users/token \
 
-      **library (authorization is required, can be tested via Postman with Bearer token provided from users/token)** \
+      **users (authorization is not required)** 
+    - [Register User] http://127.0.0.1:8000/users/register
+    - [Register User] http://127.0.0.1:8000/users/token 
+
+      **library (authorization is required, can be tested via Postman, with Bearer token provided from users/token)**
     - [Books List] http://127.0.0.1:8000/library/books
     - [Create Book] http://127.0.0.1:8000/library/books/create
     - [Get Book by ID] http://127.0.0.1:8000/library/books/get/{id}
     - [Update Book by ID (both PATCH and PUT methods)] http://127.0.0.1:8000/library/books/update/{id}
-    - [Delete Book by ID] http://127.0.0.1:8000/library/books/delete/{id} \
+    - [Delete Book by ID] http://127.0.0.1:8000/library/books/delete/{id} 
 
-      **admin site** is also configured \
+      **admin site** is also configured 
     - [Admin interface] http://127.0.0.1:8000/admin
 
 # Fixture
@@ -48,6 +49,6 @@ Main stack: Django, Djangorestframework, MySQL, Celery, Redis, Docker, unittest.
 # Testing
 
 1. All the endpoints are covered with unittests in users/tests.py and library/tests.py
-- Run tests from the running docker container: \
-  docker-compose exec app python manage.py test
+2. Run tests from the running docker container:
+    - docker-compose exec app python manage.py test
 
