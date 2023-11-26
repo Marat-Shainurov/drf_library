@@ -26,7 +26,7 @@ Main stack: Django, Djangorestframework, MySQL, Celery, Redis, Docker, unittest.
 
       **users (authorization is not required)** 
     - [Register User] http://127.0.0.1:8000/users/register
-    - [Register User] http://127.0.0.1:8000/users/token 
+    - [Get Token] http://127.0.0.1:8000/users/token 
 
       **library (authorization is required, can be tested via Postman, with Bearer token provided from users/token)**
     - [Books List] http://127.0.0.1:8000/library/books
