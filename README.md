@@ -13,16 +13,16 @@ Main stack: Django, Djangorestframework, MySQL, Celery, Redis, Docker, unittest.
     - You have to add MYSQL_DATABASE and MYSQL_ROOT_PASSWORD variables for the database setup.
 
 3. Build and run a new **docker** image from the project's root directory:
-    - docker-compose up --build \
+    - docker-compose up --build
 
-      3307 port is used for the database outside the docker container, in case the standard 3306 port is already in use.
+    3307 port is used for the database outside the docker container, in case the standard 3306 port is already in use.
 
 4. After successful startup check out the project's endpoints (swagger or redoc **documentation** formats are
    available):
     - [Swagger Documentation] http://127.0.0.1:8000/docs/
     - [ReDoc Documentation] http://127.0.0.1:8000/redoc/
 
-5. Start working with the app's endpoints: \
+5. Start working with the app's endpoints:
 
       **users (authorization is not required)** 
     - [Register User] http://127.0.0.1:8000/users/register
