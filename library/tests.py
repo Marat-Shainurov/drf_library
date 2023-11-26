@@ -32,7 +32,7 @@ class BookTestCase(APITestCase):
             'title': 'Test book',
             'author': 'Me',
             'publish_year': '2023',
-            'ISBN': '123456789112'
+            'ISBN': '123456789222'
         }
         response = self.client.post(reverse('library:create_book'), data=data)
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
@@ -64,7 +64,7 @@ class BookTestCase(APITestCase):
         """
         data = {
             'title': 'Test book',
-            'ISBN': '123456789112'
+            'ISBN': '123456789222'
         }
         response = self.client.post(reverse('library:create_book'), data=data)
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
