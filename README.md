@@ -22,26 +22,26 @@ Main stack: Django, Djangorestframework, MySQL, Celery, Redis, Docker, unittest.
     - [Swagger Documentation] http://127.0.0.1:8000/docs/
     - [ReDoc Documentation] http://127.0.0.1:8000/redoc/
 
-5. Start working with the app's endpoints:
-    - **users (authorization is not required)**
+5. Start working with the app's endpoints: \
+      **users (authorization is not required)** \
     - [Register User] http://127.0.0.1:8000/users/register
-    - [Register User] http://127.0.0.1:8000/users/token
+    - [Register User] http://127.0.0.1:8000/users/token \
 
-    - **library (authorization is required, can be tested via Postman with Bearer token provided from users/token)**
+      **library (authorization is required, can be tested via Postman with Bearer token provided from users/token)** \
     - [Books List] http://127.0.0.1:8000/library/books
     - [Create Book] http://127.0.0.1:8000/library/books/create
     - [Get Book by ID] http://127.0.0.1:8000/library/books/get/{id}
     - [Update Book by ID (both PATCH and PUT methods)] http://127.0.0.1:8000/library/books/update/{id}
-    - [Delete Book by ID] http://127.0.0.1:8000/library/books/delete/{id}
+    - [Delete Book by ID] http://127.0.0.1:8000/library/books/delete/{id} \
 
-    - **admin site** is also configured
+      **admin site** is also configured \
     - [Admin interface] http://127.0.0.1:8000/admin
 
 # Fixture
 
 1. If necessary the testing fixture may be loaded (with 2 CustomUser and 2 Book testing instances):
     - docker-compose exec app python manage.py loaddata test_fixture.json
-2. Credentials:
+2. Testing users and credentials:
     - {"username": "test_superuser", "password": "123"}
     - {"username": "test_user", "password": "QWE123qwe123!"}
 
